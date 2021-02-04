@@ -12,6 +12,8 @@ public class GameDisplayGraphics{
     public static int SIZE_WIDE = 700;
     public static int MARGIN = 20;
     public static double LINE_WIDE = 4;
+    static int BOX_WIDE;
+    static int BOX_TALL;
     static int FONT_SIZE = 30;
     static GraphicsContext gc;
 
@@ -21,8 +23,8 @@ public class GameDisplayGraphics{
 	
 	gc = can.getGraphicsContext2D();
 
-	int BOX_WIDE = (SIZE_WIDE-2*MARGIN)/6;
-	int BOX_TALL = (SIZE_TALL-2*MARGIN)/6;
+	BOX_WIDE = (SIZE_WIDE-2*MARGIN)/6;
+	BOX_TALL = (SIZE_TALL-2*MARGIN)/6;
 	gc.setLineWidth(LINE_WIDE);
 	
 	gc.clearRect(0,0,SIZE_WIDE,SIZE_TALL);
@@ -48,30 +50,52 @@ public class GameDisplayGraphics{
 	    num_stones = state.getStones(PlayerID.TOP, 5-i);
 	    x = MARGIN + i*BOX_WIDE + BOX_WIDE/2;
 	    y = MARGIN + 2*BOX_TALL;
-	    gc.strokeText( String.valueOf(num_stones), x, y);
+	    displayBinContents(x, y, num_stones);
 	}
 
 	for(int i=0; i<6; i++){
 	    num_stones = state.getStones(PlayerID.BOT, i);
 	    x = MARGIN + i*BOX_WIDE + BOX_WIDE/2;
 	    y = MARGIN + 4*BOX_TALL;
-	    gc.strokeText( String.valueOf(num_stones), x, y);
+	    displayBinContents(x, y, num_stones);
 	}
 
 	num_stones = state.getHome(PlayerID.TOP);
 	x = MARGIN + 3*BOX_WIDE;
         y = MARGIN + BOX_TALL/2;	
-	gc.strokeText(String.valueOf(num_stones), x, y);
+	displayBinContents(x, y, num_stones);
 
 	num_stones = state.getHome(PlayerID.BOT);
 	x = MARGIN + 3*BOX_WIDE;
 	y = MARGIN + 5*BOX_TALL + BOX_TALL/2;	
-	gc.strokeText(String.valueOf(num_stones), x, y);
+	displayBinContents(x, y, num_stones);
 
     }
 
     static void displayBinContents(int x, int y, int num_stones){
-	y = y + FONT_SIZE/2;
-	gc.strokeText(String.valueOf(num_stones), x, y);
+
+	gc.setFill(Color.DARKBLUE);
+	int INC = Math.min(BOX_WIDE, BOX_TALL) / 4;
+	int RAD = (3 * INC) / 4;
+	
+	int count = 1;
+	int dx = -1 * INC;
+	int dy = -1 * INC;
+	
+	while (num_stones <= 9 && count <= num_stones){
+	    count = count + 1;
+	    gc.fillOval(x + dx, y + dy, RAD, RAD);
+	    dx = dx + INC;
+	    if( count % 3 == 1){
+		dy = dy + INC;
+		dx = -1 * INC;
+	    }
+	}
+	    
+	
+	if( num_stones > 9 ){
+	    y = y + FONT_SIZE/2;
+	    gc.strokeText(String.valueOf(num_stones), x, y);
+	}
     }
 }
