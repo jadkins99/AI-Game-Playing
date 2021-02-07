@@ -17,6 +17,24 @@ public class GameRules{
 	}
 	return true;
     }
+
+    static boolean isGameOver(GameState state){
+        boolean done = false;
+	if (noStones( PlayerID.TOP, state) && noStones(PlayerID.BOT, state)){
+	    done = true;
+	}
+	return done;
+    }
+
+    public static GameState makeMove(GameState state, Move mv){
+	PlayerID play = mv.getPlayer();
+	if( state.getCurPlayer() == play){
+	    return makeMove(state, mv.getBin());
+	}
+	else
+	    return null;
+    }
+			    
     
     public static GameState makeMove(GameState state, int bin){
 	GameState new_state = new GameState(state);

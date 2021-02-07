@@ -63,12 +63,12 @@ public class GameDisplayGraphics{
 	num_stones = state.getHome(PlayerID.TOP);
 	x = MARGIN + 3*BOX_WIDE;
         y = MARGIN + BOX_TALL/2;	
-	displayBinContents(x, y, num_stones);
+	displayHome(x, y, num_stones);
 
 	num_stones = state.getHome(PlayerID.BOT);
 	x = MARGIN + 3*BOX_WIDE;
 	y = MARGIN + 5*BOX_TALL + BOX_TALL/2;	
-	displayBinContents(x, y, num_stones);
+	displayHome(x, y, num_stones);
 
     }
 
@@ -77,25 +77,75 @@ public class GameDisplayGraphics{
 	gc.setFill(Color.DARKBLUE);
 	int INC = Math.min(BOX_WIDE, BOX_TALL) / 4;
 	int RAD = (3 * INC) / 4;
+	x = x - RAD/2;
+	y = y - RAD/2;
 	
 	int count = 1;
-	int dx = -1 * INC;
-	int dy = -1 * INC;
+
+	//Parameters for a small number of stones
+	int half_row = 1;
+
+	//Parameters for larger numbers of stones
+	if (num_stones > 9){
+	    half_row = 2;
+	}
 	
-	while (num_stones <= 9 && count <= num_stones){
+	int row_size = half_row * 2 + 1;
+	int dx = -1 * half_row * INC;
+	int dy = -1 * half_row * INC;
+	int temp;
+
+	// Up to 25 Stones
+	while (num_stones <= 25 && count <= num_stones){
 	    count = count + 1;
 	    gc.fillOval(x + dx, y + dy, RAD, RAD);
 	    dx = dx + INC;
-	    if( count % 3 == 1){
+	    temp = count % row_size;
+	    if( temp == 1){
 		dy = dy + INC;
-		dx = -1 * INC;
+		dx = -1 * half_row * INC;
 	    }
 	}
-	    
 	
-	if( num_stones > 9 ){
+	if( num_stones > 25 ){
 	    y = y + FONT_SIZE/2;
 	    gc.strokeText(String.valueOf(num_stones), x, y);
 	}
+    }
+
+    static void displayHome(int x, int y, int num_stones){
+
+	gc.setFill(Color.DARKBLUE);
+	int INC = Math.min(BOX_WIDE, BOX_TALL) / 4;
+	int RAD = (3 * INC) / 4;
+	x = x - RAD/2;
+	y = y - RAD/2;
+	
+	int count = 1;
+	int row_size;
+	if (num_stones % 2 == 0){
+	    row_size = num_stones / 2;
+	}
+	else{
+	    row_size = num_stones / 2 + 1;
+	}
+	    
+	int half_row =  row_size / 2;
+	
+	int dx = -1 * half_row * INC;
+	int dy = -1 * INC;
+	int temp;
+
+	while (count <= num_stones){
+	    count = count + 1;
+	    gc.fillOval(x + dx, y + dy, RAD, RAD);
+	    dx = dx + INC;
+	    temp = count % row_size;
+	    if( temp == 1){
+		dy = dy + INC;
+		dx = -1 * half_row * INC;
+	    }
+	}
+
     }
 }

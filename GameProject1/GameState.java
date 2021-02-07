@@ -9,6 +9,23 @@ class GameState {
     boolean top_turn;
     boolean game_over;
 
+    static public GameState concedeState(PlayerID play){
+	GameState state = new GameState();
+
+	for (int i = 0; i<6; i++){
+	    state.setStones(PlayerID.TOP, i, 0);
+	    state.setStones(PlayerID.BOT, i, 0);
+	}
+
+	if(play == PlayerID.TOP){
+	    state.addHome(PlayerID.BOT, 48);
+	}
+	else{
+	    state.addHome(PlayerID.TOP, 48);
+	}
+	return state;
+    }
+    
     void setStones(PlayerID play_id, int bin_num, int stones){
 	if (play_id == PlayerID.TOP){
 	    top_bins.set(bin_num, stones);
