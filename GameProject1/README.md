@@ -1,5 +1,15 @@
-Currently, this folder has code that lets you play the game that we are using for Project 1
+This folder has the files that you will need for Project One. 
 
-At the moment, there is no interface to connect an AI to the program (it only supports a human playing with the Mouse)
+You should create your AI player in a new (separate package). 
+Do NOT add your files to ProjectOneEngine. 
+Instead, you should import the files you need from ProjectOneEngine (e.g. the Player Interface)
 
-Additionally, the user-interface will improve somewhat in the coming week
+Your AI players should implement the ProjectOneEngine.Player interface. 
+
+Note: To start a game, I recommend that you compile all the files.
+Then once you have compiled the files, use Java to run ProjectOneEngine.AIGameApp or ProjectOneEngine.HumanGameApp
+
+I have my Javafx files in C:\javafx
+Therefore, I use the following command to start a game (from the command line):
+ 
+java --module-path  C:\javafx\lib --add-modules javafx.controls ProjectOneEngine.HumanGameApp
