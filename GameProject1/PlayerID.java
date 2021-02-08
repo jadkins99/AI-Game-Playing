@@ -1,1 +1,0 @@
-enum PlayerID {TOP, BOT}
