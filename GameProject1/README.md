@@ -1,4 +1,4 @@
-**This folder has the files that you will need for Project One. **
+**This folder has the files that you will need for Project One.**
 
 You should create your AI player in a new (separate package). 
 Do NOT add your files to ProjectOneEngine. 
