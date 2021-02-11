@@ -94,7 +94,7 @@ public class HumanGameApp extends Application{
 
     void nextTurn(int bin_num){
 
-	System.out.print("Player " + cur_player.name() + "moves : ");	
+	System.out.print("Player " + state.getCurPlayer().name() + "moves : ");	
 	System.out.println(bin_num);
 	state = GameRules.makeMove(state, bin_num);
 	GameDisplayGraphics.displayState(test_canvas, state);
