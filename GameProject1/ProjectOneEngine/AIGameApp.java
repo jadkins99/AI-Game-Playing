@@ -25,6 +25,8 @@ public class AIGameApp extends Application{
     Canvas test_canvas;
     Stage primary;
     GameState state;
+    
+    // You can raise this delay to slow down the AI moves
     final double DELAY_TIME = 1.0;
 
     public void start(Stage primaryStage){
@@ -125,8 +127,9 @@ public class AIGameApp extends Application{
 		}
 		
 		int bin_num = nextMove.getBin();
-		
-		System.out.println(bin_num + 1);
+
+	      	System.out.print("Player " + cur_player.name() + "moves : ");
+		System.out.println(bin_num);
 		state = GameRules.makeMove(state, bin_num);
 		GameDisplayGraphics.displayState(test_canvas, state);
 	    }
@@ -138,7 +141,8 @@ public class AIGameApp extends Application{
 	    PlayerID cur_player = state.getCurPlayer();
 
 	    if ((GameRules.makeMove(state, bin_num) != null)){
-		System.out.println(bin_num + 1);
+		System.out.print("Player " + cur_player.name() + "moves : ");
+		System.out.println(bin_num);
 		state = GameRules.makeMove(state, bin_num);
 		GameDisplayGraphics.displayState(test_canvas, state);
 	    }
