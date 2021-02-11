@@ -1,4 +1,4 @@
-This folder has the files that you will need for Project One. 
+**This folder has the files that you will need for Project One. **
 
 You should create your AI player in a new (separate package). 
 Do NOT add your files to ProjectOneEngine. 
@@ -14,10 +14,14 @@ Therefore, I use the following command to start a game (from the command line):
  
 java --module-path  C:\javafx\lib --add-modules javafx.controls ProjectOneEngine.HumanGameApp
 
+**Note:** This tells Java to find the Package ProjectOneEngine and then run the class HumanGameApp belonging to the package ProjectOneEngine.
+This requires Java to be able to find the package ProjectOneEngine. 
+The first place that Java looks for packages is in sub-directories of the current working directory. 
+Therefore, I find it easiest to just open a terminal window, change the directory to the folder that contains ProjectOneEngine and then ask java to run ProjectOneEngine.HumanGameApp  (An alternative approach is to put ProjectOneEngine into a folder in your system's java CLASSPATH)
 
 ------------
 
-THE RULES OF THE GAME:
+**THE RULES OF THE GAME:**
 
 The game is played between a Top player and a Bottom player.
 The Bottom player goes first
