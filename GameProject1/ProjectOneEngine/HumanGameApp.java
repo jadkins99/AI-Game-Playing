@@ -18,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.Scanner;
 
-
 public class HumanGameApp extends Application{
     Canvas test_canvas;
     Stage primary;
@@ -37,6 +36,7 @@ public class HumanGameApp extends Application{
 
 	//This is Badly Coupled with the Graphics Code!! <sorry>
 	// ... Really Ugly <sigh>
+	// ************************
 	mainScene.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		public void handle(MouseEvent event) {
 		    double x = event.getX();
@@ -50,21 +50,24 @@ public class HumanGameApp extends Application{
 		    double boxY = (sizeY-2*mar)/6;
 
 		    int bin_num_bot = (int) ((x - mar)/boxX);
-		    
+
 		    if (state.isTopTurn()){
 			if ( (y > mar + boxY) && (y < mar + 3*boxY) ){
+			    if((bin_num_bot >= 0) && (bin_num_bot < 6)){
 				nextTurn(5 - bin_num_bot);
+			    }
 			}
-			
 		    }
 		    else{
 			if ( (y > mar + 3*boxY) && (y < mar + 5*boxY) ){
-			    nextTurn(bin_num_bot);
+			    if((bin_num_bot >= 0) && (bin_num_bot < 6)){
+				nextTurn(bin_num_bot);
+			    }
 			}
 		    }
 		}
 	    });
-		    
+        //************************
 
 	
         primaryStage.setScene(mainScene);
