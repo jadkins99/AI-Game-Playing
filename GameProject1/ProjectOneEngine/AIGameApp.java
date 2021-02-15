@@ -1,3 +1,12 @@
+// To play with your AI player, you need to do two things:
+// 1) Add an import statement to import your AI player
+// 2) Change the lines inside start that say:
+//      TOP_Player =
+//      BOT_Player =
+//
+// Note: You can replay a game from a text file by setting
+//        File_Name to be a String with the name of the file
+
 package ProjectOneEngine;
 
 import javafx.application.Application;
@@ -19,6 +28,11 @@ import javafx.scene.input.MouseEvent;
 import java.util.Scanner;
 
 public class AIGameApp extends Application{
+    // IMPORTANT: File_Name = null
+    //      signals that we are NOT replaying a game from a file  
+    static final String File_Name = null;
+    // static final String File_Name = "transcript.txt";
+    
     Player TOP_Player;
     Player BOT_Player;
     
@@ -33,9 +47,16 @@ public class AIGameApp extends Application{
 	//IMPORTANT : Change these lines to change who is playing!
 	TOP_Player = new RandomPlayer();
 	BOT_Player = null;  // null means "Human Player"
+
+	//IMPORTANT : If there is a File_Name
+	//     Then we will always display the game from the file!
+	if( File_Name != null){
+	    TOP_Player = new GameFromFilePlayer(File_Name);
+	    BOT_Player = new GameFromFilePlayer(File_Name);
+	}
 	
         primary = primaryStage;
-        primaryStage.setTitle("A Test");
+        primaryStage.setTitle("Watch AI Players");
         Group root = new Group();
         test_canvas = new Canvas(1200, 800);
  
@@ -141,7 +162,7 @@ public class AIGameApp extends Application{
 	    PlayerID cur_player = state.getCurPlayer();
 
 	    if ((GameRules.makeMove(state, bin_num) != null)){
-		System.out.print("Player " + cur_player.name() + "moves : ");
+		System.out.print("Player " + cur_player.name() + " moves : ");
 		System.out.println(bin_num);
 		state = GameRules.makeMove(state, bin_num);
 		GameDisplayGraphics.displayState(test_canvas, state);
