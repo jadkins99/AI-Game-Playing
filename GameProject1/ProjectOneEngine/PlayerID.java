@@ -1,3 +1,3 @@
 package ProjectOneEngine;
 
-enum PlayerID {TOP, BOT}
+public enum PlayerID {TOP, BOT}

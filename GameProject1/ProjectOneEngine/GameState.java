@@ -3,7 +3,7 @@ package ProjectOneEngine;
 import java.util.List;
 import java.util.ArrayList;
 
-class GameState {
+public class GameState {
     ArrayList<Integer> top_bins;
     ArrayList<Integer> bot_bins;
     int top_home;

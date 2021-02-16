@@ -8,7 +8,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.Font;
 import javafx.scene.shape.ArcType;
 
-public class GameDisplayGraphics{
+class GameDisplayGraphics{
     public static int SIZE_TALL = 500;
     public static int SIZE_WIDE = 700;
     public static int MARGIN = 20;
