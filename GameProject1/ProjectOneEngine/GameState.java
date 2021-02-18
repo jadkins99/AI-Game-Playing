@@ -10,6 +10,8 @@ public class GameState {
     int bot_home;
     boolean top_turn;
     boolean game_over;
+    String top_name;
+    String bot_name;
 
     static public GameState concedeState(PlayerID play){
 	GameState state = new GameState();
@@ -83,6 +85,23 @@ public class GameState {
 	return answer;
     }
 
+    public String getTopName(){
+	return top_name;
+    }
+
+    public String getBotName(){
+	return bot_name;
+    }
+
+    public String getPlayName(PlayerID play){
+	if( play == PlayerID.TOP ){
+	    return top_name;
+	}
+	else{
+	    return bot_name;
+	}
+    }
+
     public boolean isTopTurn(){
 	return top_turn;
     }
@@ -117,6 +136,27 @@ public class GameState {
 	top_bins = new ArrayList<Integer>();
 	bot_bins = new ArrayList<Integer>();
 
+	top_name = "Human Player";
+	bot_name = "Human Player";
+	
+	for(int i=0; i<6; i++){
+	    top_bins.add(4);
+	    bot_bins.add(4);
+	}
+
+	top_home = 0;
+	bot_home = 0;
+	top_turn = false;
+	game_over = false;
+    }
+
+    public GameState(String nameT, String nameB){
+	top_bins = new ArrayList<Integer>();
+	bot_bins = new ArrayList<Integer>();
+
+	top_name = nameT;
+	bot_name = nameB;
+
 	for(int i=0; i<6; i++){
 	    top_bins.add(4);
 	    bot_bins.add(4);
@@ -133,6 +173,9 @@ public class GameState {
     public GameState(GameState old_state){
       	top_bins = new ArrayList<Integer>();
 	bot_bins = new ArrayList<Integer>();
+
+	top_name = old_state.top_name;
+	bot_name = old_state.bot_name;
 
 	for(int i=0; i<6; i++){
 	    top_bins.add( old_state.getStones(PlayerID.TOP, i));

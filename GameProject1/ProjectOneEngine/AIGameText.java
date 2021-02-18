@@ -21,7 +21,7 @@ public class AIGameText{
 	TOP_Player = new RandomPlayer();
 	BOT_Player = new RandomPlayer();	
       
-	state = new GameState();
+	state = new GameState(TOP_Player.getPlayName(), BOT_Player.getPlayName());
 
 	BufferedWriter file_out = new BufferedWriter(new FileWriter( FILE_NAME ));
 	file_out.write("Top Player is: ");

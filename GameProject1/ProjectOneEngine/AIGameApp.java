@@ -9,6 +9,11 @@
 
 package ProjectOneEngine;
 
+// Here I am importing the player CrazyBaab.
+// You can change this to import your player
+//    import ArmyOfBaab.CrazyBaab;
+
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -54,9 +59,30 @@ public class AIGameApp extends Application{
 	    TOP_Player = new GameFromFilePlayer(File_Name);
 	    BOT_Player = new GameFromFilePlayer(File_Name);
 	}
-	
+
+
+	//Set up the names in the state object
+	String nameTop;
+	String nameBot;
+	if (TOP_Player != null){
+	    nameTop = TOP_Player.getPlayName();
+	}
+	else{
+	    nameTop = "Human Player";
+	}
+	if (BOT_Player != null){
+	    nameBot = BOT_Player.getPlayName();
+	}
+	else{
+	    nameBot = "Human Player";
+	}
+
+
+	state = new GameState(nameTop, nameBot );
         primary = primaryStage;
-        primaryStage.setTitle("Watch AI Players");
+	String title = "TOP: " + nameTop + " ";
+	title = title + "  vs  BOT: " + nameBot;
+        primaryStage.setTitle(title);
         Group root = new Group();
         test_canvas = new Canvas(1200, 800);
  
@@ -115,8 +141,8 @@ public class AIGameApp extends Application{
 	
 	quickTimer.setCycleCount(Timeline.INDEFINITE);
 	quickTimer.play();		
-      
-	state = new GameState();
+
+	    
 	GameDisplayGraphics.displayState(test_canvas, state);
 
     }
