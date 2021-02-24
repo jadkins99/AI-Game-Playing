@@ -36,11 +36,11 @@ The stones are taken out of that bin and distributed counter-clockwise
 If the last stone ends up in a bin on the opponent's side
 ... and that bin has 2 or 3 stones (after the stone lands in the bin)
 ... Then a CAPTURE takes place and the (2 or 3) stones are removed
-... These captured stones are permenantly placed in the player's HOME (off the board)
+... These captured stones are permenantly placed in the active player's HOME (off the board)
 
 If a capture takes place, the active player then looks backwards one bin (clockwise)
 ... If the previous bin is also on the opponent's side and has 2 or 3 stones
-... Then the opponent captures all the stones from both bins
+... Then the active player captures all the stones from both bins
 ... Repeat until you hit a bit that doesn't have 2 or 3 stones
 ... Also, you can only capture on your opponents' side 
 ... so if looking back clockwise gets you back to your own row of bins, you stop this process

@@ -1,4 +1,23 @@
+// To play with your AI player, you need to do two things:
+// 1) Add an import statement to import your AI player
+// 2) Change the lines inside start that say:
+//      TOP_Player =
+//      BOT_Player =
+//
+// Note: You can replay a game from a text file by setting
+//        File_Name to be a String with the name of the file
+
 package ProjectOneEngine;
+
+// Here I am importing the player CrazyBaab.
+// You can change this to import your player
+import ArmyOfBaab.Baab;
+import ArmyOfBaab.LittleBaab;
+import ArmyOfBaab.BabyBaab;
+import ArmyOfBaab.CleverBaab;
+import ArmyOfBaab.CarefulBaab;
+import ArmyOfBaab.WiseOldBaab;
+
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -19,6 +38,11 @@ import javafx.scene.input.MouseEvent;
 import java.util.Scanner;
 
 public class AIGameApp extends Application{
+    // IMPORTANT: File_Name = null
+    //      signals that we are NOT replaying a game from a file  
+    static final String File_Name = null;
+    // static final String File_Name = "transcript.txt";
+    
     Player TOP_Player;
     Player BOT_Player;
     
@@ -27,15 +51,43 @@ public class AIGameApp extends Application{
     GameState state;
     
     // You can raise this delay to slow down the AI moves
-    final double DELAY_TIME = 1.0;
+    final double DELAY_TIME = 0.5;
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	TOP_Player = new RandomPlayer();
-	BOT_Player = null;  // null means "Human Player"
-	
+	TOP_Player = new BabyBaab();
+	BOT_Player = new LittleBaab();  // null means "Human Player"
+
+	//IMPORTANT : If there is a File_Name
+	//     Then we will always display the game from the file!
+	if( File_Name != null){
+	    TOP_Player = new GameFromFilePlayer(File_Name);
+	    BOT_Player = new GameFromFilePlayer(File_Name);
+	}
+
+
+	//Set up the names in the state object
+	String nameTop;
+	String nameBot;
+	if (TOP_Player != null){
+	    nameTop = TOP_Player.getPlayName();
+	}
+	else{
+	    nameTop = "Human Player";
+	}
+	if (BOT_Player != null){
+	    nameBot = BOT_Player.getPlayName();
+	}
+	else{
+	    nameBot = "Human Player";
+	}
+
+
+	state = new GameState(nameTop, nameBot );
         primary = primaryStage;
-        primaryStage.setTitle("A Test");
+	String title = "TOP: " + nameTop + " ";
+	title = title + "  vs  BOT: " + nameBot;
+        primaryStage.setTitle(title);
         Group root = new Group();
         test_canvas = new Canvas(1200, 800);
  
@@ -94,8 +146,8 @@ public class AIGameApp extends Application{
 	
 	quickTimer.setCycleCount(Timeline.INDEFINITE);
 	quickTimer.play();		
-      
-	state = new GameState();
+
+	    
 	GameDisplayGraphics.displayState(test_canvas, state);
 
     }
@@ -141,7 +193,7 @@ public class AIGameApp extends Application{
 	    PlayerID cur_player = state.getCurPlayer();
 
 	    if ((GameRules.makeMove(state, bin_num) != null)){
-		System.out.print("Player " + cur_player.name() + "moves : ");
+		System.out.print("Player " + cur_player.name() + " moves : ");
 		System.out.println(bin_num);
 		state = GameRules.makeMove(state, bin_num);
 		GameDisplayGraphics.displayState(test_canvas, state);

@@ -19,5 +19,9 @@ public class RandomPlayer implements Player{
 	}
 	return rand_move;
     }
+
+    public String getPlayName(){
+	return "Completely Random Player";
+    }
 }
 	
