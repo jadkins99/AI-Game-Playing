@@ -55,9 +55,8 @@ public class AIGameApp extends Application{
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	TOP_Player = new BabyBaab();
-	BOT_Player = new LittleBaab();  // null means "Human Player"
-
+	TOP_Player = new RandomPlayer();
+	BOT_Player = new KillerRobot();  // null means "Human Player"
 	//IMPORTANT : If there is a File_Name
 	//     Then we will always display the game from the file!
 	if( File_Name != null){
