@@ -5,52 +5,73 @@ public class ThinkAheadPlayer implements Player {
     private class ValuedMove {
         public Move move;
         public float value;
+        public ArrayList<ValuedMove> children;
+        public ValuedMove parent;
 
         public ValuedMove(Move move, float value) {
             this.move = move;
             this.value = value;
+            this.children = new ArrayList<ValuedMove>();
+            this.parent = null
+        }
+
+        public void addChild(ValuedMove child) {
+            this.children.add(child);
+            child.parent = this;
         }
     }
 
     private MoveEvaluator moveEvaluator;
     private int depth = 1;
+    private PlayerID player;
 
     public ThinkAheadPlayer(MoveEvaluator moveEvaluator) {
         this.moveEvaluator = moveEvaluator;
     }
 
     public Move getMove (GameState state) {
-        return getBestMove(evaluateMoves(state, depth=this.depth))
+        if (player == null) {
+            player = state.getCurPlayer();
+        }
+        return evaluateMoves(state, depth=this.depth).move;
     }
 
-    private List<ValuedMove> evaluateMoves (GameState state, int n = 0) {
+    private ValuedMove evaluateMoves (ValuedMove curMove, GameState state, int n = 0) {
         int curDepth = n + 1;                           // Which level of the evaluation "tree" we're on right now
 
         if (curDepth > depth) return null;
 
         // Get the possible moves, assign values to them, and store them in a list
-        ArrayList<ValuedMove> moveList = new ArrayList<ValuedMove>();
-
         for (int i = 0; i < 6; i++){
             Move m = new Move(i, state.getCurPlayer());
             GameState gs = checkGameState(state, m);
             if (gs != null) {
-                moveList.add(new ValuedMove(m, moveEvaluator.evaluateMove(gs)));
+                ValuedMove vm = new ValuedMove(m, 0);
+                curMove.addChild(vm);
+                ValuedMove newMove = evaluateMoves(vm, gs, curDepth);
+                if (newMove == null) {
+                    vm.value = moveEvaluator.evaluateMove(gs);
+                }
+                else {
+                    vm.value = newMove.value
+                }
             }
         }
 
-        return moveList;
+        if (curMove.children.isEmpty()) return null;
+
+        return getBestMove(curMove.children, state.getCurPlayer());
     }
 
-    private Move getBestMove (List<ValuedMove> moveList) {
-        Move bestMove = null;                           // Stores the best move
-        float bestMoveVal = Integer.MIN_VALUE;          // Stores the value of the best move for comparison
+    private ValuedMove getBestMove (List<ValuedMove> moveList, PlayerID moveMaker) {
+        ValuedMove bestMove = new ValuedMove(null, -(Float.MAX_VALUE));    // Stores the best move
+        boolean myTurn = moveMaker == this.player;
+        if (myTurn) bestMove.value *= -1;
 
         // Finds the move with the greatest value
         for (ValuedMove vm : moveList) {
-            if (vm.value > bestMoveVal) {
-                bestMove = vm.move;
-                bestMoveVal = vm.value;
+            if ((myTurn && vm.value > bestMove.value) || (!myTurn && vm.value < bestMove.value)) {
+                bestMove = vm;
             }
         }
 
