@@ -1,4 +1,4 @@
-package DefensivePlayers;
+package GameProject1.DefensivePlayers;
 
 import java.util.ArrayList;
 import java.util.Collections;

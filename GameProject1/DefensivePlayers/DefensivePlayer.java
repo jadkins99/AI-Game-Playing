@@ -1,14 +1,12 @@
-package DefensivePlayers;
+package GameProject1.DefensivePlayers;
 
-// import statements
+import java.util.ArrayList;
+import java.util.Random;
+
+import GameProject1.ProjectOneEngine.GameRules;
+import GameProject1.ProjectOneEngine.GameState;
 import GameProject1.ProjectOneEngine.Player;
 import GameProject1.ProjectOneEngine.PlayerID;
-import GameProject1.ProjectOneEngine.GameRules;
-import GameProject1.ProjectOneEngine.Move;
-import GameProject1.ProjectOneEngine.GameState;
-
-import java.util.Random;
-import java.util.ArrayList;
 
 class DefensivePlayer implements Player {
 
