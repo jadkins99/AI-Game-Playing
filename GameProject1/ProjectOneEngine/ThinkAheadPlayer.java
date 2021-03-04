@@ -1,4 +1,6 @@
 package ProjectOneEngine;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ThinkAheadPlayer implements Player {
 
@@ -12,7 +14,7 @@ public class ThinkAheadPlayer implements Player {
             this.move = move;
             this.value = value;
             this.children = new ArrayList<ValuedMove>();
-            this.parent = null
+            this.parent = null;
         }
 
         public void addChild(ValuedMove child) {
@@ -22,7 +24,7 @@ public class ThinkAheadPlayer implements Player {
     }
 
     private MoveEvaluator moveEvaluator;
-    private int depth = 1;
+    private int depth = 10;
     private PlayerID player;
 
     public ThinkAheadPlayer(MoveEvaluator moveEvaluator) {
@@ -33,13 +35,13 @@ public class ThinkAheadPlayer implements Player {
         if (player == null) {
             player = state.getCurPlayer();
         }
-        return evaluateMoves(state, depth=this.depth).move;
+        return evaluateMoves(new ValuedMove(null, 0), state, depth=this.depth).move;
     }
 
-    private ValuedMove evaluateMoves (ValuedMove curMove, GameState state, int n = 0) {
+    private ValuedMove evaluateMoves (ValuedMove curMove, GameState state, int n) {
         int curDepth = n + 1;                           // Which level of the evaluation "tree" we're on right now
 
-        if (curDepth > depth) return null;
+        if (curDepth > depth) return curMove;
 
         // Get the possible moves, assign values to them, and store them in a list
         for (int i = 0; i < 6; i++){
@@ -49,22 +51,22 @@ public class ThinkAheadPlayer implements Player {
                 ValuedMove vm = new ValuedMove(m, 0);
                 curMove.addChild(vm);
                 ValuedMove newMove = evaluateMoves(vm, gs, curDepth);
-                if (newMove == null) {
+                if (newMove == curMove) {
                     vm.value = moveEvaluator.evaluateMove(gs);
                 }
                 else {
-                    vm.value = newMove.value
+                    vm.value = newMove.value;
                 }
             }
         }
 
-        if (curMove.children.isEmpty()) return null;
+        if (curMove.children.isEmpty()) return curMove;
 
         return getBestMove(curMove.children, state.getCurPlayer());
     }
 
     private ValuedMove getBestMove (List<ValuedMove> moveList, PlayerID moveMaker) {
-        ValuedMove bestMove = new ValuedMove(null, -(Float.MAX_VALUE));    // Stores the best move
+        ValuedMove bestMove = new ValuedMove(new Move(1, moveMaker), -(Float.MAX_VALUE));    // Stores the best move
         boolean myTurn = moveMaker == this.player;
         if (myTurn) bestMove.value *= -1;
 
@@ -83,5 +85,5 @@ public class ThinkAheadPlayer implements Player {
         return GameRules.makeMove(tmpGameState, move);
     }
 
-    public String getPlayName() { return "Galaxy Brain Player v1" }
+    public String getPlayName() { return "Galaxy Brain Player v1"; }
 }
