@@ -51,12 +51,12 @@ public class AIGameApp extends Application{
     GameState state;
     
     // You can raise this delay to slow down the AI moves
-    final double DELAY_TIME = 0.5;
+    final double DELAY_TIME = 2;
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
 	TOP_Player = new RandomPlayer();
-	BOT_Player = new KillerRobot();  // null means "Human Player"
+	BOT_Player = new ThinkAheadPlayer(new BasicEvaluator());  // null means "Human Player"
 	//IMPORTANT : If there is a File_Name
 	//     Then we will always display the game from the file!
 	if( File_Name != null){
