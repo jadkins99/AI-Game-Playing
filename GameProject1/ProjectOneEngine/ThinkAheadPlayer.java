@@ -26,7 +26,7 @@ public class ThinkAheadPlayer implements Player {
     }
 
     private MoveEvaluator moveEvaluator;
-    private int depth = 10;
+    private int depth = 5;
     private PlayerID maxPlayer;
     private PlayerID minPlayer;
 
@@ -46,7 +46,7 @@ public class ThinkAheadPlayer implements Player {
     private ValuedMove evaluateMoves (ValuedMove curMove, GameState state, int n, int depth) {
         int curDepth = n + 1;                           // Which level of the evaluation "tree" we're on right now
 
-        if (curDepth > depth) return curMove;
+        if (curDepth > depth || !curMove.children.isEmpty()) return curMove;
 
         for (int i = 0; i < 6; i++){
             Move m = new Move(i, state.getCurPlayer());
@@ -56,7 +56,7 @@ public class ThinkAheadPlayer implements Player {
                 ValuedMove vm = new ValuedMove(m, 0);
                 curMove.addChild(vm);
                 ValuedMove newMove = evaluateMoves(vm, gs, curDepth, depth);
-                if (newMove == curMove) {
+                if (newMove == vm) {
                     vm.value = moveEvaluator.evaluateMove(gs);
                 }
                 else {
