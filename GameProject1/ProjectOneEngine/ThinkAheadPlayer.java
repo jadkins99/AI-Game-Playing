@@ -50,7 +50,8 @@ public class ThinkAheadPlayer implements Player {
 
         for (int i = 0; i < 6; i++){
             Move m = new Move(i, state.getCurPlayer());
-            GameState gs = checkGameState(state, m);
+            //GameState gs = checkGameState(state, m);
+            GameState gs = GameRules.makeMove(state, m);
             if (gs != null) {
                 System.out.println("New Move, depth: " + curDepth);
                 ValuedMove vm = new ValuedMove(m, 0);
@@ -67,11 +68,17 @@ public class ThinkAheadPlayer implements Player {
 
         if (curMove.children.isEmpty()) return curMove;
 
-        return getBestMove(curMove.children, state.getCurPlayer());
+        ValuedMove move = getBestMove(curMove.children, state.getCurPlayer());
+        System.out.println("I see these moves: ");
+        for (ValuedMove child : curMove.children) {
+            System.out.println(child.move.getBin());
+        }
+        System.out.println("I picked move: " + move.move.getBin());
+        return move;
     }
 
     private ValuedMove getBestMove (List<ValuedMove> moveList, PlayerID moveMaker) {
-        ValuedMove bestMove = new ValuedMove(new Move(1, moveMaker), -(Float.MAX_VALUE));    // Stores the best move
+        ValuedMove bestMove = new ValuedMove(new Move(1, moveMaker), (Float.MAX_VALUE));    // Stores the best move
         boolean myTurn = moveMaker == this.maxPlayer;
         if (myTurn) bestMove.value *= -1;
 
