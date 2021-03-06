@@ -38,7 +38,7 @@ public class ThinkAheadPlayer implements Player {
         if (maxPlayer == null) {
             maxPlayer = state.getCurPlayer();
             if (maxPlayer == PlayerID.TOP) minPlayer = PlayerID.BOT;
-            else minPlayer = PlayerID.BOT;
+            else minPlayer = PlayerID.TOP;
         }
         return evaluateMoves(new ValuedMove(null, 0), state, 0, this.depth).move;
     }
