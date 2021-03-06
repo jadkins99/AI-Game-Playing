@@ -58,6 +58,7 @@ public class ThinkAheadPlayer implements Player {
                 curMove.addChild(vm);
                 ValuedMove newMove = evaluateMoves(vm, gs, curDepth, depth);
                 if (newMove == vm) {
+                    System.out.println("It's not broken");
                     vm.value = moveEvaluator.evaluateMove(gs);
                 }
                 else {
