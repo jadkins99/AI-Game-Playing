@@ -55,7 +55,7 @@ public class AIGameApp extends Application{
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	TOP_Player = new BabyBaab();
+	TOP_Player = new WiseOldBaab();
 	BOT_Player = new LittleBaab();  // null means "Human Player"
 
 	//IMPORTANT : If there is a File_Name
@@ -183,6 +183,21 @@ public class AIGameApp extends Application{
 	      	System.out.print("Player " + cur_player.name() + "moves : ");
 		System.out.println(bin_num);
 		state = GameRules.makeMove(state, bin_num);
+		if (state.isGameOver()){
+		    int t_sc = state.getHome(PlayerID.TOP);
+		    int b_sc = state.getHome(PlayerID.BOT);
+		    
+		    if( t_sc > b_sc ){
+			System.out.println("TOP Wins: " + TOP_Player.getPlayName());
+		    }
+		    if(t_sc < b_sc){	
+			System.out.println("BOT Wins: " + BOT_Player.getPlayName());
+		    }
+		    if(b_sc == t_sc){
+			System.out.println("The Game is a Draw!");
+		    }
+
+		}
 		GameDisplayGraphics.displayState(test_canvas, state);
 	    }
 	}
