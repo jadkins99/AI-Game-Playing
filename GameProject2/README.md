@@ -31,7 +31,7 @@ The opposing player then has two choices, she can either pass and let the active
 
 Alternatively, she can choose to buy the card by paying the price to the active player.
 
-**IMPORTANT:** If the active player buys the card, the coins go away. However, if the opposing player buys the card, the coins are given to the active player for compensation.
+*IMPORTANT:* If the active player buys the card, the coins go away. However, if the opposing player buys the card, the coins are given to the active player for compensation.
 
 Whoever buys the card, places the card next to one of the castles. 
 
@@ -45,7 +45,7 @@ If a castle has four cards belonging to the same player then a battle takes plac
 
 When a battle occurs, if either player has the castle targeted for their secret dragon, then that player has a dragon added to castle at the time of the attack.
 
-**SPECIAL RULE:** If either player has a dragon slayer at a castle, the dragon slayer will cripple one opposing dragon reducing its value from 6 to 1.
+*SPECIAL RULE:* If either player has a dragon slayer at a castle, the dragon slayer will cripple one opposing dragon reducing its value from 6 to 1.
 
 The total value of the monsters for each player is added up and the player who has the highest total will win the castle. 
 
