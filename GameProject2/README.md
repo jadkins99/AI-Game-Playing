@@ -37,3 +37,15 @@ When a castle is attacked, if either player has the castle targeted for their se
 The total value of the monsters for each player is added up and the player who has the highest total will win the castle. 
 
 The game ends when one player wins two of the three castles. 
+
+--------------------------
+
+**Deck of Monster Cards**
+
+The deck consists of:
+2 : Dragons - value 6
+4 : Griffins - value 5
+5 : Giants - value 4
+5 : War Lions - value 3
+4 : Wolves - value 2
+2 : Dragon Slayers - value 1
