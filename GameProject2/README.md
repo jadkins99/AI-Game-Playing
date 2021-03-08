@@ -45,7 +45,7 @@ If a castle has four cards belonging to the same player then a battle takes plac
 
 When a battle occurs, if either player has the castle targeted for their secret dragon, then that player has a dragon added to castle at the time of the attack.
 
-*SPECIAL RULE:* If either player has a dragon slayer at a castle, the dragon slayer will cripple one opposing dragon reducing its value from 6 to 1.
+*SPECIAL RULE:* If either player has a dragon slayer at a castle, the dragon slayer will defeat one opposing dragon reducing its value from 6 to 0.
 
 The total value of the monsters for each player is added up and the player who has the highest total will win the castle. 
 
