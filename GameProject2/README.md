@@ -4,7 +4,7 @@ Note: This game is a variant of Crimson Company by
 
 **THE RULES OF THE GAME: **
 
-<u> Setup </u>
+<ins> Setup </ins>
 
 The game is played between a Top player and a Bottom player. The Bottom player goes first.
 
@@ -19,6 +19,8 @@ Each player has a secret dragon targeting one of the three castles, but neither 
 Additionally, there is a deck of 22 monster cards. The deck is shuffled and 4 cards are put in a public location for the players to see.
 The top card of the deck is also visable to the players (but the cards below the top card are hidden)
 
+<ins> A Player's Turn: <ins>
+
 On a player's turn, the active player gains an income of 3 coins.
 
 The active player first selects one of the four public monster cards. 
@@ -26,17 +28,22 @@ The active player first selects one of the four public monster cards.
 The player then selects a price (in coins) for the card which cannot be greater than the active player's current coins. 
 
 The opposing player then has two choices, she can either pass and let the active player buy the card for the specified price. 
+
 Alternatively, she can choose to buy the card by paying the price to the active player.
 
 **IMPORTANT:** If the active player buys the card, the coins go away. However, if the opposing player buys the card, the coins are given to the active player for compensation.
 
 Whoever buys the card, places the card next to one of the castles. 
+
 At this point the top card on the monster deck replaces the purchased card in the common area. 
+
 This reveals a new card on the top of the monster deck.
 
-If a castle has four cards belonging to the same player then the castle is attacked. 
+<ins> Castle Battles: </ins>
 
-When a castle is attacked, if either player has the castle targeted for their secret dragon, then that player has a dragon added to castle at the time of the attack.
+If a castle has four cards belonging to the same player then a battle takes place at that castle. 
+
+When a battle occurs, if either player has the castle targeted for their secret dragon, then that player has a dragon added to castle at the time of the attack.
 
 **SPECIAL RULE:** If either player has a dragon slayer at a castle, the dragon slayer will cripple one opposing dragon reducing its value from 6 to 1.
 
