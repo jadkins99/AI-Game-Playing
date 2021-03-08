@@ -2,21 +2,27 @@ Note: This game is a variant of Crimson Company by
 
 -----------------------------
 
-THE RULES OF THE GAME: 
+**THE RULES OF THE GAME: **
+
+<u> Setup </u>
 
 The game is played between a Top player and a Bottom player. The Bottom player goes first.
 
 The top player starts with 4 coins and the bottom player starts with 3 coins. 
 
 There are 3 Castles in the center of the play area.
+
 At the beginning of the game, each player is secretly told that one of the castles is marked for an allied dragon attack. 
+
 Each player has a secret dragon targeting one of the three castles, but neither player can see which castle is targeted by the opposing player.
 
 Additionally, there is a deck of 22 monster cards. The deck is shuffled and 4 cards are put in a public location for the players to see.
 The top card of the deck is also visable to the players (but the cards below the top card are hidden)
 
 On a player's turn, the active player gains an income of 3 coins.
+
 The active player first selects one of the four public monster cards. 
+
 The player then selects a price (in coins) for the card which cannot be greater than the active player's current coins. 
 
 The opposing player then has two choices, she can either pass and let the active player buy the card for the specified price. 
