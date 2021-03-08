@@ -1,4 +1,4 @@
-Note: This game is a variant of Crimson Company by Crimson Company
+Note: This game is a variant of Crimson Company
 
 -----------------------------
 
