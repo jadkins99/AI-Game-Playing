@@ -1,10 +1,10 @@
-Note: This game is a variant of Crimson Company by 
+Note: This game is a variant of Crimson Company by Crimson Company
 
 -----------------------------
 
-**THE RULES OF THE GAME: **
+**THE RULES OF THE GAME:**
 
-<ins> Setup </ins>
+<ins> **Setup** </ins>
 
 The game is played between a Top player and a Bottom player. The Bottom player goes first.
 
@@ -19,7 +19,7 @@ Each player has a secret dragon targeting one of the three castles, but neither 
 Additionally, there is a deck of 22 monster cards. The deck is shuffled and 4 cards are put in a public location for the players to see.
 The top card of the deck is also visable to the players (but the cards below the top card are hidden)
 
-<ins> A Player's Turn: <ins>
+<ins> **A Player's Turn:** <ins>
 
 On a player's turn, the active player gains an income of 3 coins.
 
@@ -39,7 +39,7 @@ At this point the top card on the monster deck replaces the purchased card in th
 
 This reveals a new card on the top of the monster deck.
 
-<ins> Castle Battles: </ins>
+<ins> **Castle Battles:** </ins>
 
 If a castle has four cards belonging to the same player then a battle takes place at that castle. 
 
@@ -56,9 +56,15 @@ The game ends when one player wins two of the three castles.
 **Deck of Monster Cards**
 
 The deck consists of:
-2 : Dragons - value 6
-4 : Griffins - value 5
-5 : Giants - value 4
-5 : War Lions - value 3
-4 : Wolves - value 2
-2 : Dragon Slayers - value 1
+
+2 copies : Dragons - value 6
+
+4 copies : Griffins - value 5
+
+5 copies : Giants - value 4
+
+5 copies: War Lions - value 3
+
+4 copies : Wolves - value 2
+
+2 copies : Dragon Slayers - value 1
