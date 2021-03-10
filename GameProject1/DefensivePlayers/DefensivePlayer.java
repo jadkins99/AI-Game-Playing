@@ -2,11 +2,13 @@ package GameProject1.DefensivePlayers;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 import GameProject1.ProjectOneEngine.GameRules;
 import GameProject1.ProjectOneEngine.GameState;
 import GameProject1.ProjectOneEngine.Player;
 import GameProject1.ProjectOneEngine.PlayerID;
+import GameProject1.ProjectOneEngine.Move;
 
 class DefensivePlayer implements Player {
 
@@ -57,10 +59,12 @@ class DefensivePlayer implements Player {
             }
             else {
                 if (cap_bins.size() == 0){
-                    int rand_bin = rand.nextInt(6);
-                    def_mo = rand_bin;
+                    // if no bins have capturable stones, pick the largest bin to move
+                    int large_bin = bin_count.indexOf(Collections.max(bin_count));
+                    def_mo = large_bin;
                 }
                 else {
+                    // else get the capturable bin closest to the enemy players move
                     def_mo = cap_bins.get(0);
                 }
             }
