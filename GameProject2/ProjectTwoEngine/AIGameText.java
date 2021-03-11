@@ -155,7 +155,7 @@ public class AIGameText{
 
 	for(CastleID cas : CastleID.values()){
 	    file_out.newLine();
-	    file_out.write(cas.name() + " Won By "+ state.getCastleWon(CastleID.CastleA).name());
+	    file_out.write(cas.name() + " Won By "+ state.getCastleWon(cas).name());
 	    file_out.newLine();
 	    top_mons = state.getMonsters(cas, PlayerID.TOP);
 	    bot_mons = state.getMonsters(cas, PlayerID.BOT);
