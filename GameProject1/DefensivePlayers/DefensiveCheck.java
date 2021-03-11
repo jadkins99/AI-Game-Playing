@@ -76,7 +76,7 @@ class DefensiveCheck implements MoveEvaluator {
         // returns its ranking of that game state :
         // higher rank : no / few capturable bins
         // lower rank : bins are at risk of capture
-        return ranking;
+        return (float)ranking;
     }
 
 }
