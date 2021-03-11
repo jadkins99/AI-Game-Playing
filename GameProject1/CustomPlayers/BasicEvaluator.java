@@ -1,4 +1,10 @@
-package ProjectOneEngine;
+package GameProject1.CustomPlayers;
+
+import GameProject1.ProjectOneEngine.GameRules;
+import GameProject1.ProjectOneEngine.GameState;
+import GameProject1.ProjectOneEngine.Player;
+import GameProject1.ProjectOneEngine.PlayerID;
+import GameProject1.ProjectOneEngine.Move;
 
 public class BasicEvaluator implements MoveEvaluator {
     public float evaluateMove(GameState state){

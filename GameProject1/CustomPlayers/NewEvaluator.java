@@ -1,4 +1,7 @@
-package ProjectOneEngine;
+package CustomPlayers;
+
+import GameProject1.ProjectOneEngine.GameState;
+import GameProject1.ProjectOneEngine.PlayerID;
 
 public class NewEvaluator implements MoveEvaluator {
 

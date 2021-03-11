@@ -1,6 +1,12 @@
-package ProjectOneEngine;
+package GameProject1.CustomPlayers;
 import java.util.List;
 import java.util.ArrayList;
+
+import GameProject1.ProjectOneEngine.GameRules;
+import GameProject1.ProjectOneEngine.GameState;
+import GameProject1.ProjectOneEngine.Player;
+import GameProject1.ProjectOneEngine.PlayerID;
+import GameProject1.ProjectOneEngine.Move;
 
 public class ThinkAheadPlayer implements Player {
 
