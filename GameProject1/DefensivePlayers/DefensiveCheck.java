@@ -37,10 +37,9 @@ class DefensiveCheck implements MoveEvaluator {
             opp_stones = state.getStones(opp_player, i);
             opp_bins.add(opp_stones);
         }
+        
         // checks the nearest three spaces of the board, if its one or two stones then good moves are weighted to
         // first n second spaces, otherwise weight higher to "safer" moves
-
-        // code to check bin amounts here
 
         // current players bins
         for (int i=0; i < 6; i ++){
