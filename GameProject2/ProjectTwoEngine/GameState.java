@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GameState {
     Map<CastleID, List<Monster> > top_monsters;
@@ -256,8 +257,15 @@ public class GameState {
 
 	top_coins = 4;
 	bot_coins = 6;
-	top_hidden = CastleID.CastleA;
-	bot_hidden = CastleID.CastleB;
+
+	//Select random castles for the hidden dragons
+	Random rand = new Random();
+	List<CastleID> castles = new ArrayList<CastleID>();
+	castles.add(CastleID.CastleA);
+	castles.add(CastleID.CastleB);
+	castles.add(CastleID.CastleC);
+	top_hidden = castles.get( rand.nextInt(3) );
+	bot_hidden = castles.get( rand.nextInt(3) );
 
 	top_turn = false;
 	game_over = false;
