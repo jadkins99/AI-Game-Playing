@@ -1,5 +1,6 @@
 package AIcode;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -78,8 +79,11 @@ public class PointsPlayer implements Player {
         if (mon.value <= price){
             // buy it if the value is less than the price & player has enough coins
             res_move = new RespondMove(player, false, mon);
-            if (state.getCoins(player) - price >= 0){ 
+            if (state.getCoins(player) - price > 0){ 
                 to_pass = false;
+            }
+            else if (state.getCoins(player) - price < 0){
+                to_pass = true;
             }
         }
         else {
@@ -95,10 +99,56 @@ public class PointsPlayer implements Player {
 
     // places monster at castle
     public PlaceMonsterMove getPlace(GameState state, Monster mon){ 
-        List<Move> leg_moves = GameRules.getLegalMoves(state);
+        PlayerID player = state.getCurPlayer(); 
 
-        int i = rand.nextInt(leg_moves.size());
-        return (PlaceMonsterMove) leg_moves.get(i);
+        int totalA = 0;
+        int totalB = 0;
+        int totalC = 0;
+
+        // add to the castle with the lowest overall value
+
+        ArrayList<Monster> casA = new ArrayList<Monster>(state.getMonsters(CastleID.CastleA, player));
+        ArrayList<Monster> casB = new ArrayList<Monster>(state.getMonsters(CastleID.CastleB, player));
+        ArrayList<Monster> casC= new ArrayList<Monster>(state.getMonsters(CastleID.CastleC, player));
+
+        CastleID cas = null;
+
+        if (casA != null && casB != null && casC != null){
+            for(int i=0; i < casA.size(); i++){
+                totalA += casA.get(i).value;
+            }
+        
+
+            for(int i=0; i < casB.size(); i++){
+                totalB += casB.get(i).value;
+            }
+
+            for(int i=0; i < casC.size(); i++){
+                totalC += casC.get(i).value;
+            }
+
+            if (totalA <= totalB && totalA <= totalC) {
+                cas = CastleID.CastleA;
+            } else if (totalB <= totalC && totalB <= totalA) {
+                cas = CastleID.CastleB;
+            } else {
+                cas = CastleID.CastleC;
+            }
+        }
+        else {
+            if(casA == null){
+                cas = CastleID.CastleA;
+            }
+            else if(casB == null){
+                cas = CastleID.CastleB;
+            }
+            else if(casC == null){
+                cas = CastleID.CastleC;
+            }
+        }
+
+        PlaceMonsterMove place_move = new PlaceMonsterMove(player, cas, mon);
+        return place_move;
     }
 
     // returns player name
