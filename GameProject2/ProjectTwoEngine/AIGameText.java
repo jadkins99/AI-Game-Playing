@@ -8,8 +8,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import AIcode.PointsPlayer;
-
 public class AIGameText{
     // Change this file name to change where the moves are written
     static final String FILE_NAME = "transcript.txt";
@@ -22,7 +20,7 @@ public class AIGameText{
     public static void main(String[] args) throws IOException {
 	//IMPORTANT : Change these lines to change who is playing!
 	TOP_Player = new RandomPlayer();
-	BOT_Player = new PointsPlayer();	
+	BOT_Player = new RandomPlayer();	
       
 	state = new GameState(TOP_Player.getPlayName(), BOT_Player.getPlayName());
 

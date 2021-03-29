@@ -30,7 +30,7 @@ public class RespondMove implements Move{
 
     public RespondMove(PlayerID id, boolean pass, Monster m){
 	play = id;
-    is_pass = pass;
+        is_pass = pass;
 	monst = m;
     }
 }

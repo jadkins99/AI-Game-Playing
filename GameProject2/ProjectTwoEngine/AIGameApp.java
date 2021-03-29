@@ -11,12 +11,7 @@ package ProjectTwoEngine;
 
 // Here I am importing some players here.
 // You can change this to import your player
-//import ArmyOfBaab.Baab;
-//import ArmyOfBaab.LittleBaab;
-//import ArmyOfBaab.BabyBaab;
-//import ArmyOfBaab.CleverBaab;
-//import ArmyOfBaab.CarefulBaab;
-//import ArmyOfBaab.WiseOldBaab;
+import AliceSquad.AliceTheQuick;
 
 
 import javafx.application.Application;
@@ -37,8 +32,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.Scanner;
 
-import AIcode.*;
-
 public class AIGameApp extends Application{
     // IMPORTANT: File_Name = null
     //      signals that we are NOT replaying a game from a file  
@@ -57,8 +50,8 @@ public class AIGameApp extends Application{
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	TOP_Player = new RandomPlayer();
-	BOT_Player = new PointsPlayer(); 
+	TOP_Player = new AliceTheQuick();
+	BOT_Player =  new RandomPlayer();
 
 	//IMPORTANT : If there is a File_Name
 	//     Then we will always display the game from the file!
@@ -89,6 +82,14 @@ public class AIGameApp extends Application{
         root.getChildren().add(test_canvas);
         Scene mainScene;
         mainScene = new Scene(root, 1200, 900, Color.BEIGE);
+
+
+	//Test Code
+	for(Monster mon : state.getDeck()){
+	    System.out.println(mon.name);
+	}
+
+	
 		  
         primaryStage.setScene(mainScene);
         primaryStage.show();
@@ -99,6 +100,7 @@ public class AIGameApp extends Application{
 		    nextAITurn();
 		}
 	    }));
+
 	
 	quickTimer.setCycleCount(Timeline.INDEFINITE);
 	quickTimer.play();		

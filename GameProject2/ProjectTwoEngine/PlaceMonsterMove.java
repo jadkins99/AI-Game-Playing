@@ -19,7 +19,7 @@ public class PlaceMonsterMove implements Move{
 
     public PlaceMonsterMove(PlayerID id, CastleID c, Monster m){
 	play = id;
-    cas = c;
+        cas = c;
 	mon = m;
     }
 }
