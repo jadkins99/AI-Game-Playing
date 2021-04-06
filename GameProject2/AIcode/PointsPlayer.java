@@ -11,7 +11,6 @@ public class PointsPlayer implements Player {
 
     boolean to_pass = false;
     RespondMove res_move; 
-    PlaceMonsterMove place_move; 
     Random rand;
 
     public void begin(GameState init_state){
@@ -29,9 +28,9 @@ public class PointsPlayer implements Player {
 
         for (int i = 0; i < cur_public.size(); i++){
             cur_mon = cur_public.get(i);
-            if(cur_mon.value > 3 && coins > cur_mon.value + 2){
-                if (chose_mon != null || chose_mon.name != "Dragon Slayer" ){
-                    if(chose_mon.value < cur_mon.value){
+            if(cur_mon.value > 3){
+                if (chose_mon != null || chose_mon.name != "Slayer" ){
+                    if(chose_mon.value < cur_mon.value && coins > (int)cur_mon.value){
                         chose_mon = cur_mon;
                     }
                 }
@@ -39,7 +38,7 @@ public class PointsPlayer implements Player {
                     chose_mon = cur_mon;
                 }
             }
-            else if (cur_mon.name == "Dragon Slayer" && coins > 3){
+            else if (cur_mon.name == "Slayer" && coins > 3){
                 chose_mon = cur_mon;
             }
             else {
@@ -49,11 +48,11 @@ public class PointsPlayer implements Player {
             }
         }
 
-        if (chose_mon.name == "Dragon Slayer"){
+        if (chose_mon.name == "Slayer"){
             price = 3;
         }
         else {
-            price = chose_mon.value + 2;
+            price = chose_mon.value - 1;
         }
         
         BuyMonsterMove buy_move = new BuyMonsterMove(player, price, chose_mon);
@@ -78,7 +77,6 @@ public class PointsPlayer implements Player {
 
         if (mon.value <= price){
             // buy it if the value is less than the price & player has enough coins
-            res_move = new RespondMove(player, false, mon);
             if (state.getCoins(player) - price > 0){ 
                 to_pass = false;
             }
@@ -101,53 +99,33 @@ public class PointsPlayer implements Player {
     public PlaceMonsterMove getPlace(GameState state, Monster mon){ 
         PlayerID player = state.getCurPlayer(); 
 
-        int totalA = 0;
-        int totalB = 0;
-        int totalC = 0;
-
         // add to the castle with the lowest overall value
 
-        ArrayList<Monster> casA = new ArrayList<Monster>(state.getMonsters(CastleID.CastleA, player));
-        ArrayList<Monster> casB = new ArrayList<Monster>(state.getMonsters(CastleID.CastleB, player));
-        ArrayList<Monster> casC= new ArrayList<Monster>(state.getMonsters(CastleID.CastleC, player));
+        PlaceMonsterMove cast = new PlaceMonsterMove(player, CastleID.CastleA, mon);
+        int pas_poin = 0;
+        int cur_poin = 0;
+        PlaceMonsterMove cho_cas = new PlaceMonsterMove(player, CastleID.CastleA, mon);
 
-        CastleID cas = null;
-
-        if (casA != null && casB != null && casC != null){
-            for(int i=0; i < casA.size(); i++){
-                totalA += casA.get(i).value;
-            }
+        List<Move> leg_moves = GameRules.getLegalMoves(state);
         
-
-            for(int i=0; i < casB.size(); i++){
-                totalB += casB.get(i).value;
+        for(int i=0; i < leg_moves.size()-1; i ++){
+            cast = (PlaceMonsterMove)leg_moves.get(i);
+            ArrayList<Monster> cur_cas = new ArrayList<Monster>(state.getMonsters(cast.getCastle(), player));
+            
+            // get total points of current castle
+            for(int x=0; x < cur_cas.size()-1; x ++){
+                cur_poin = cur_poin + cur_cas.get(x).value;
             }
 
-            for(int i=0; i < casC.size(); i++){
-                totalC += casC.get(i).value;
+            if (cur_poin < pas_poin && pas_poin != 0){
+                cur_poin = pas_poin;
+                cho_cas = cast;
             }
-
-            if (totalA <= totalB && totalA <= totalC) {
-                cas = CastleID.CastleA;
-            } else if (totalB <= totalC && totalB <= totalA) {
-                cas = CastleID.CastleB;
-            } else {
-                cas = CastleID.CastleC;
-            }
-        }
-        else {
-            if(casA == null){
-                cas = CastleID.CastleA;
-            }
-            else if(casB == null){
-                cas = CastleID.CastleB;
-            }
-            else if(casC == null){
-                cas = CastleID.CastleC;
-            }
+            
+            cur_poin = 0;
         }
 
-        PlaceMonsterMove place_move = new PlaceMonsterMove(player, cas, mon);
+        PlaceMonsterMove place_move = new PlaceMonsterMove(player, cho_cas.getCastle(), mon);
         return place_move;
     }
 
