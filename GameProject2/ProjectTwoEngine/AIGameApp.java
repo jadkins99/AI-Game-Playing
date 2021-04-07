@@ -51,7 +51,7 @@ public class AIGameApp extends Application{
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
 	TOP_Player = new AliceTheQuick();
-	BOT_Player =  new PointsPlayer();
+	BOT_Player =  new New_player();
 
 	//IMPORTANT : If there is a File_Name
 	//     Then we will always display the game from the file!
