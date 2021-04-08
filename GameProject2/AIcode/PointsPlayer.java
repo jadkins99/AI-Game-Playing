@@ -98,40 +98,68 @@ public class PointsPlayer implements Player {
     // places monster at castle
     public PlaceMonsterMove getPlace(GameState state, Monster mon){ 
         PlayerID player = state.getCurPlayer(); 
-
         // add to the castle with the lowest overall value
 
-        PlaceMonsterMove cast = new PlaceMonsterMove(player, CastleID.CastleA, mon);
-        int pas_poin = 0;
-        int cur_poin = 0;
-        PlaceMonsterMove cho_cas = new PlaceMonsterMove(player, CastleID.CastleA, mon);
+        // take two get castle monster list
+        // i have recoded this stupid part of the AI so many times now
+        ArrayList<Monster> casA = new ArrayList<Monster>(state.getMonsters(CastleID.CastleA, player));
+        ArrayList<Monster> casB = new ArrayList<Monster>(state.getMonsters(CastleID.CastleB, player));
+        ArrayList<Monster> casC = new ArrayList<Monster>(state.getMonsters(CastleID.CastleC, player));
+        int totalA = 0;
+        int totalB = 0;
+        int totalC = 0;
 
-        List<Move> leg_moves = GameRules.getLegalMoves(state);
-        
-        for(int i=0; i < leg_moves.size()-1; i ++){
-            cast = (PlaceMonsterMove)leg_moves.get(i);
-            ArrayList<Monster> cur_cas = new ArrayList<Monster>(state.getMonsters(cast.getCastle(), player));
-            
-            // get total points of current castle
-            for(int x=0; x < cur_cas.size()-1; x ++){
-                cur_poin = cur_poin + cur_cas.get(x).value;
+        CastleID cho_cas = CastleID.CastleB;
+
+        if (casA != null && casB != null && casC != null){
+            // get totals
+            for(int i=0; i < casA.size(); i++){
+                totalA += casA.get(i).value;
+            }
+            for(int i=0; i < casB.size(); i++){
+                totalB += casB.get(i).value;
+            }
+            for(int i=0; i < casC.size(); i++){
+                totalC += casC.get(i).value;
             }
 
-            if (cur_poin < pas_poin && pas_poin != 0){
-                cur_poin = pas_poin;
-                cho_cas = cast;
+            if ((int)casA.size() < 4){
+                if (totalA < totalB && totalA < totalC){
+                    cho_cas = CastleID.CastleA;
+                }
             }
-            
-            cur_poin = 0;
+
+            else if ((int)casB.size() < 4){
+                if (totalB < totalA && totalB < totalC){
+                    cho_cas = CastleID.CastleB;
+                }
+            }
+
+            else {
+                if ((int)casC.size() < 4){
+                    cho_cas = CastleID.CastleC;
+                }
+            }
+        }
+        else {
+            if (casA == null){
+                cho_cas = CastleID.CastleA;
+            }
+            else if (casB == null) {
+                cho_cas = CastleID.CastleB;
+            }
+            else {
+                cho_cas = CastleID.CastleC;
+            }
         }
 
-        PlaceMonsterMove place_move = new PlaceMonsterMove(player, cho_cas.getCastle(), mon);
+        PlaceMonsterMove place_move = new PlaceMonsterMove(player, cho_cas, mon);
         return place_move;
     }
 
     // returns player name
     public String getPlayName(){
-        return "High Points :)";
+        return "Stupid AI";
     }
     
 }
