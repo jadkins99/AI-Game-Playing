@@ -57,7 +57,7 @@ public class TonyMakesBadChoices implements Player {
     //If you steal, you will get the chosen monster
     //... but hand your opponent the price in coins
     public RespondMove getRespond(GameState state, Monster mon, int price) {
-        if (price <= mon.value && price <= state.getCoins(Tony))
+        if (price <= mon.value && price < state.getCoins(Tony))
             return new RespondMove(Tony, false, mon);
         else
             return new RespondMove(Tony, true, mon);
@@ -150,7 +150,7 @@ public class TonyMakesBadChoices implements Player {
         System.out.println("Trying to place at " + first + ", dragon is at " + castle1);
         if (state.getMonsters(first, Tony).size() < 4 || (state.getMonsters(first, Tony).size() == 4 && first == castle1))
             return first;
-        if (state.getMonsters(second, Tony).size() < 4 || state.getMonsters(second, Tony).size() == 4 && second == castle1))
+        if (state.getMonsters(second, Tony).size() < 4 || (state.getMonsters(second, Tony).size() == 4 && second == castle1))
             return second;
 
         return third;
