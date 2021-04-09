@@ -111,7 +111,7 @@ public class PointsPlayer implements Player {
 
         CastleID cho_cas = CastleID.CastleB;
 
-        if (casA != null && casB != null && casC != null){
+        if (casA.size() !=0 && casB.size() != 0 && casC.size() != 0){
             // get totals
             for(int i=0; i < casA.size(); i++){
                 totalA += casA.get(i).value;
@@ -126,30 +126,36 @@ public class PointsPlayer implements Player {
             if ((int)casA.size() < 4){
                 if (totalA < totalB && totalA < totalC){
                     cho_cas = CastleID.CastleA;
+                    System.out.println("Add to Castle A !");
                 }
             }
 
             else if ((int)casB.size() < 4){
                 if (totalB < totalA && totalB < totalC){
                     cho_cas = CastleID.CastleB;
+                    System.out.println("Add to Castle B !");
                 }
             }
 
             else {
                 if ((int)casC.size() < 4){
                     cho_cas = CastleID.CastleC;
+                    System.out.println("Add to Castle C !");
                 }
             }
         }
         else {
-            if (casA == null){
+            if (casA.size() == 0){
                 cho_cas = CastleID.CastleA;
+                System.out.println("Add to Castle A ! NULL");
             }
-            else if (casB == null) {
+            else if (casB.size() == 0) {
                 cho_cas = CastleID.CastleB;
+                System.out.println("Add to Castle B ! NULL");
             }
             else {
                 cho_cas = CastleID.CastleC;
+                System.out.println("Add to Castle C ! NULL");
             }
         }
 
