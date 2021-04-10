@@ -188,6 +188,21 @@ public class New_player implements Player{
 
     }
 
+
+    public boolean hasDragonSlayer(GameState state, CastleID castleid){
+        
+        List<Monster> opp_monsters = state.getMonsters(castleid,this.opp_id);
+
+        for(Monster monster: opp_monsters){
+            if (monster.name == "Slayer"){
+            return true;
+        }
+        
+
+    }
+
+        return false;
+    }
     public PlaceMonsterMove getPlace(GameState state, Monster mon)
     {
         state.setDeck(DeckFactory.createDeck());
@@ -206,7 +221,18 @@ public class New_player implements Player{
             }
         }
 
-        if(best_val > -10){
+        if (this.hasDragonSlayer(state, best_move.getCastle()) && best_move.getMonster().name == "Dragon"){
+            int i = rand.nextInt(moves.size());
+            if (best_move == (PlaceMonsterMove) moves.get(i)){
+                return (PlaceMonsterMove) moves.get((i+1)%moves.size());
+            }
+            else{
+                return (PlaceMonsterMove) moves.get(i);
+            }
+        }
+
+
+        else if(best_val > -10){
 
             return best_move;
         }
