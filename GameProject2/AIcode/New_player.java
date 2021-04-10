@@ -47,7 +47,7 @@ public class New_player implements Player{
         int price;
         if (my_coins > opp_coins){
             
-            if(my_mon.value > 3){
+            if(my_mon.value > 1){
                 price = opp_coins + 1;
             }
 
@@ -159,7 +159,7 @@ public class New_player implements Player{
             int buffer = 0;
             
             if (this.getNumCastles(state) == 3){
-                buffer = 2;
+                buffer = 0;
             }
 
              if (this.getNumCastles(state) == 2){
