@@ -91,7 +91,7 @@ public class TonyMakesBadChoices implements Player {
         }
         */
 
-        CastleID castleChoice = castleChoice = findValidPlacement(castle1, castle2, castle3, state);
+        CastleID castleChoice = findValidPlacement(castle2, castle1, castle3, state);
         System.out.println(Tony + " is placing " + mon + " at " + castleChoice);
 
         return new PlaceMonsterMove(Tony, castleChoice, mon);
@@ -151,8 +151,8 @@ public class TonyMakesBadChoices implements Player {
                 castle2 = CastleID.CastleA;
                 castle3 = CastleID.CastleC;
             } else {
-                castle2 = CastleID.CastleA;
-                castle3 = CastleID.CastleB;
+                castle2 = CastleID.CastleC;
+                castle3 = CastleID.CastleA;
             }
         } else {
             if (getCastleStrength(state, CastleID.CastleA, notTony) < getCastleStrength(state, CastleID.CastleB, notTony)) {
@@ -160,7 +160,7 @@ public class TonyMakesBadChoices implements Player {
                 castle3 = CastleID.CastleB;
             } else {
                 castle2 = CastleID.CastleB;
-                castle3 = CastleID.CastleC;
+                castle3 = CastleID.CastleA;
             }
         }
     }
@@ -181,14 +181,14 @@ public class TonyMakesBadChoices implements Player {
         if (state.getMonsters(first, Tony).size() < 4 && state.getCastleWon(first) == null) {
             return first;
         }
-        /*
+
         if (state.getMonsters(second, Tony).size() < 4 && state.getCastleWon(second) == null) {
             return second;
         }
-        */
-        assignCastles(state);
-        if (state.getMonsters(castle2, Tony).size() < 4 && state.getCastleWon(castle2) == null)
-            return castle2;
+
+        //assignCastles(state);
+        //if (state.getMonsters(castle2, Tony).size() < 4 && state.getCastleWon(castle2) == null)
+        //    return castle2;
 
         return third;
     }
