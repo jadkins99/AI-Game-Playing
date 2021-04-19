@@ -20,10 +20,10 @@ public class GameState {
 
     String[] names;
 
-    final int max_x = 12;
-    final int max_y = 12;
+    final int max_x = 15;
+    final int max_y = 15;
     final int start_len = 3;
-    final int max_food = 3;
+    final int max_food = 5;
     final int num_players = 2;
     
     static public GameState concedeState(GameState old, int play_num){
