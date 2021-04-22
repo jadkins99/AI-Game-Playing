@@ -157,7 +157,7 @@ public class GameState {
 
 	names = new String[2];
 	names[0] = old.getPlayName(0);
-	names[1] = old.getPlayName(0);
+	names[1] = old.getPlayName(1);
 
 	snakes = new Snake[2];
 	snakes[0] = new Snake( old.getSnake(0) );
