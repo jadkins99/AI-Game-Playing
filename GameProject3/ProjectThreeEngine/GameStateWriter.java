@@ -12,13 +12,14 @@ public class GameStateWriter {
     String filename;
     BufferedWriter file_out;
 
-    public GameStateWriter(String name){
+    public GameStateWriter(String name) throws IOException{
 	filename = name;
+	file_out = new BufferedWriter(new FileWriter( filename));
     }
     
     //This assumes that the final (winning/losing state is last in the list)
     public void WriteGame(List<GameState> states) throws IOException{
-	file_out = new BufferedWriter(new FileWriter( filename));
+
 	GameState end_state = states.get( states.size() - 1);
 
 	if( ! end_state.isGameOver() ){
@@ -46,7 +47,7 @@ public class GameStateWriter {
 	    file_out.write("----");
 	    file_out.newLine();
 	    writeSnake(s.getSnake(0), 0);
-	    writeSnake(s.getSnake(1), 0);
+	    writeSnake(s.getSnake(1), 1);
 	    writeFood(s.getFoods());
 	}
 
