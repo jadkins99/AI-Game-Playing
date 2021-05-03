@@ -42,9 +42,11 @@ public class GameRules{
 	    Snake sn_i = state.getSnake(i);
 	    for(int j=0; j < state.getNumPlayers(); j++){
 		Snake sn_j = state.getSnake(j);
-		
-		if( sn_j.isPresent( sn_i.head.getX(), sn_i.head.getY()) ){
-		    collide = true;
+
+		if( ! (i == j) ){
+		    if( sn_j.isPresent( sn_i.head.getX(), sn_i.head.getY()) ){
+			collide = true;
+		    }
 		}
 	    }
 	    if( sn_i.head.getX() < 0 || sn_i.head.getX() == state.max_x){
