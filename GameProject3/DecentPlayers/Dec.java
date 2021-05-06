@@ -29,11 +29,11 @@ public class Dec implements Player {
         
         for(DirType dirs: DirType.values()){
             goodDir = checkDir(state, dirs, dec_x, dec_y);
-            if (goodDir = true){
+            if (goodDir == true){
                 System.out.println(dirs);
                 return dirs;
             }
-            else if(goodDir = false){
+            else if(goodDir == false){
                 System.out.println("this sucks");
             } 
         }
@@ -45,8 +45,8 @@ public class Dec implements Player {
     private boolean checkDir (GameState state, DirType cur_dir, int x, int y){
         if (cur_dir == DirType.North){
             cur_piece = state.getPiece(x, y-1);
-            if (y == 0 || y == 1){
-                return false;
+            if (cur_piece == null && y != 1){
+                return true;
             }
             else {
                 System.out.println("north: x = " + x + ", y =" + y);
