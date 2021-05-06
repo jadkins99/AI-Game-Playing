@@ -47,14 +47,20 @@ public class GameRules{
 		    if( ! (i == j) ){
 			collide = true;
 		    }
-		    else{
-			if( ! (sn_i.head.getX() == sn_j.head.getX() &&
-			       sn_i.head.getY() == sn_j.head.getY())){
-			    collide = true;
-			}
-		    }
+
 		}
 	    }
+
+
+	    // Checks I's body to see if it ran itself over
+	    for (SnakePiece b : sn_i.body) {
+		if (b.getX() == sn_i.head.getX() && b.getY() == sn_i.head.getY()) {
+		    collide = true;
+		    state.game_over = true;
+		    state.game_winner = 1-i;
+		}
+	    }
+	    
 	    if( sn_i.head.getX() < 0 || sn_i.head.getX() == state.max_x){
 		collide = true;
 	    }
