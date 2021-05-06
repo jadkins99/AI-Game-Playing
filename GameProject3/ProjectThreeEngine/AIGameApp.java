@@ -6,7 +6,7 @@
 
 package ProjectThreeEngine;
 
-
+import DecentPlayers.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -40,7 +40,7 @@ public class AIGameApp extends Application{
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
 	Player_0 = new RandomPlayer();
-	Player_1 =  new RandomPlayer();
+	Player_1 =  new WallAvoidingPlayer();
 
 
 	//Set up the names in the state object
