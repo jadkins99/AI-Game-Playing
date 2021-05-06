@@ -9,6 +9,14 @@ public class Snake {
     HeadPiece head;
     int max_len;
 
+    public HeadPiece getHead(){
+	return head;
+    }
+
+    public List<SnakePiece> getBody(){
+	return body;
+    }
+    
     public boolean isPresent(int x, int y){
 	boolean found = false;
 
