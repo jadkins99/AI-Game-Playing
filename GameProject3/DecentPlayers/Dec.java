@@ -34,7 +34,7 @@ public class Dec implements Player {
                 return dirs;
             }
             else if(goodDir == false){
-                System.out.println("this sucks");
+                System.out.println("Not safe");
             } 
         }
 
@@ -45,19 +45,17 @@ public class Dec implements Player {
     private boolean checkDir (GameState state, DirType cur_dir, int x, int y){
         if (cur_dir == DirType.North){
             cur_piece = state.getPiece(x, y-1);
-            if (cur_piece == null && y != 1){
+            if (cur_piece == null && y != 0){
                 return true;
             }
             else {
-                System.out.println("north: x = " + x + ", y =" + y);
                 return false;
             }
         }
 
         else if (cur_dir == DirType.East){
             cur_piece = state.getPiece(x+1, y);
-            if (cur_piece == null && x != 15){
-                System.out.println("east: x = " + x + ", y =" + y);
+            if (cur_piece == null && x != state.max_x){
                 return true;
             }
             else {
@@ -67,8 +65,7 @@ public class Dec implements Player {
 
         else if (cur_dir == DirType.South){
             cur_piece = state.getPiece(x, y+1);
-            if (cur_piece == null && y != 15){
-                System.out.println("south: x = " + x + ", y =" + y);
+            if (cur_piece == null && y != state.max_y){
                 return true;
             }
             else {
@@ -78,8 +75,7 @@ public class Dec implements Player {
 
         else if (cur_dir == DirType.West){
             cur_piece = state.getPiece(x-1, y);
-            if (cur_piece == null && x != 1){
-                System.out.println("west: x = " + x + ", y =" + y);
+            if (cur_piece == null && x != 0){
                 return true;
             }
             else {
