@@ -2,14 +2,15 @@ package DecentPlayers;
 
 import ProjectThreeEngine.*;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*; 
+import java.util.Random;
+
 
 public class Dec implements Player {
 
     int dec_num;
     boolean goodDir;
+
     DirType directions[] = DirType.values();
     GamePiece cur_piece;
 
@@ -27,10 +28,19 @@ public class Dec implements Player {
 
         goodDir = checkDir(state, cur_dir, dec_x, dec_y);
         
-        for(DirType dirs: DirType.values()){
+        ArrayList<DirType> all_dirs = new ArrayList<DirType>();
+            all_dirs.add(DirType.North);
+            all_dirs.add(DirType.West);
+            all_dirs.add(DirType.East);
+            all_dirs.add(DirType.South);
+    
+        Collections.shuffle(all_dirs);
+
+        for(DirType dirs: all_dirs){
             goodDir = checkDir(state, dirs, dec_x, dec_y);
             if (goodDir == true){
                 System.out.println(dirs);
+
                 return dirs;
             }
             else if(goodDir == false){
@@ -49,27 +59,42 @@ public class Dec implements Player {
                 return true;
             }
             else {
-                return false;
+                if (state.isFood(x, y-1) == true){
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
 
         else if (cur_dir == DirType.East){
             cur_piece = state.getPiece(x+1, y);
-            if (cur_piece == null && x != state.max_x){
+            if (cur_piece == null && x != state.max_x-1){
                 return true;
             }
             else {
-                return false;
+                if (state.isFood(x+1, y) == true){
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
 
         else if (cur_dir == DirType.South){
             cur_piece = state.getPiece(x, y+1);
-            if (cur_piece == null && y != state.max_y){
+            if (cur_piece == null && y != state.max_y-1){
                 return true;
             }
             else {
-                return false;
+                if (state.isFood(x, y+1) == true){
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
 
@@ -79,7 +104,12 @@ public class Dec implements Player {
                 return true;
             }
             else {
-                return false;
+                if (state.isFood(x-1, y) == true){
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
 
