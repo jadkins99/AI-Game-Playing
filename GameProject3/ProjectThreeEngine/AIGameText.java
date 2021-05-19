@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
+import DecentPlayers.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -32,8 +32,8 @@ public class AIGameText{
 	gs_writer = new GameStateWriter(filename);
 	
 	//IMPORTANT : Change these lines to change who is playing!
-	Player_0 = new RandomPlayer();
-	Player_1 =  new RandomPlayer();
+	Player_0 = new WallAvoidingPlayer();
+	Player_1 =  new QPlayer();
 
 
 	//Set up the names in the state object

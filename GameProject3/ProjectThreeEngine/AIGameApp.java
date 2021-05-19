@@ -39,8 +39,8 @@ public class AIGameApp extends Application{
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	Player_0 = new RandomPlayer();
-	Player_1 =  new WallAvoidingPlayer();
+	Player_0 = new WallAvoidingPlayer();
+	Player_1 =  new QPlayer();
 
 
 	//Set up the names in the state object
