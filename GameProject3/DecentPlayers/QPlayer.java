@@ -14,6 +14,7 @@ public class QPlayer implements Player{
     int my_num;
 
     int state_rows_num;
+    int opp_num;
 
     
     
@@ -37,12 +38,15 @@ public class QPlayer implements Player{
 
 
 	my_num = play_num;
+
+    opp_num = Math.abs(my_num-1);
+
     state_rows_num = (int)(3*Math.pow(4,0) + 3*Math.pow(4,1) + 3*Math.pow(4,2) + 3*Math.pow(4,3) + 6*Math.pow(4,4)); // 4 states per neighbor square, 6 for possible numbers of peices eaten 0-5
 
     num_actions = 4;
 
 
-    float alpha = (float)0.1;
+    float alpha = (float)0.01;
     float gamma = (float)0.2;
     String file_path = "/home/jadkins/AI-Game-Playing/GameProject3/DecentPlayers/data";
     q_matrix = new QMatrix(alpha,gamma,state_rows_num,num_actions,file_path);
@@ -66,7 +70,7 @@ public class QPlayer implements Player{
     int action;
   
 
-    if(explore((float)0.5)) {
+    if(explore((float)0.0001)) {
         System.out.println("acts");
         action = rand.nextInt(4);
         
@@ -96,43 +100,26 @@ public class QPlayer implements Player{
 
     if(newState.isGameOver()){
 
-     reward = -50;
+     reward = (float)-1.0;
      
 
  }
 
-    else if(action == 0 && headY+1 < 0){
-
-        reward = -5000;
-
-}
-
-    else if(action == 1 && headY-1 < state.max_y){
-
-        reward = -5000;
-
-}
-
-    else if(action == 2 && headX+1 >= state.max_x){
-
-        reward = -5000;
-
-}
-
-    
-    else if(action == 3 && headX-1 <=  0){
-
-        reward = -5000;
-
-}
+ 
     
     else {
-        reward = 10;
-    }
+        Snake mySnake = state.getSnake(my_num);
+        Snake oppSnake = state.getSnake(opp_num);
 
-    System.out.println("what"+ action+ Arrays.toString(q_matrix.matrix[myState]));
-    System.out.println("state"+myState);
-    System.out.println("reward"+reward);
+        // snake length minus initial starting length
+        System.out.println("size "+mySnake.getBody().size());
+        reward = mySnake.getBody().size()- oppSnake.getBody().size();
+}
+
+    //System.out.println("what "+ action+ Arrays.toString(q_matrix.matrix[myState]));
+    //System.out.println("state "+myState);
+
+    System.out.println("reward "+reward);
 
     q_matrix.updateMatrix(reward,myState,action);
 
@@ -215,8 +202,8 @@ public class QPlayer implements Player{
         Snake mySnake = state.getSnake(my_num);
 
         // snake length minus initial starting length
-        my_pieces_eaten = Math.max(mySnake.getBody().size() - 4,0);
-
+        my_pieces_eaten = Math.max(mySnake.getBody().size() - 3,0);
+        if(my_pieces_eaten > 5) my_pieces_eaten = 5;
 
 
 
