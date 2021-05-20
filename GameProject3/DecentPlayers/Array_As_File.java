@@ -65,7 +65,7 @@ public class Array_As_File {
                 String[] cols = line.split(","); 
                 int col = 0;
                 for(String  c : cols) {
-                    array[row][col] = Integer.parseInt(c);
+                    array[row][col] = Float.parseFloat(c);
                     col++;
                 }
                 row++;

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class GameRepeatinator {
     public static void main(String[] args) {
-        runGames(20000);
+        runGames(2000000);
     }
     public static void runGames(int numGames) {
         for (int i = 0; i < numGames; i++) {

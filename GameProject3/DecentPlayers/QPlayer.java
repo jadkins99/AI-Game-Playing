@@ -7,6 +7,7 @@ import java.util.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 
 public class QPlayer implements Player{
@@ -14,7 +15,7 @@ public class QPlayer implements Player{
 
     int state_rows_num;
 
-    float reward;
+    
     
     HashMap<Integer,DirType> int_to_dir = new HashMap<Integer,DirType>();
 
@@ -41,8 +42,8 @@ public class QPlayer implements Player{
     num_actions = 4;
 
 
-    float alpha = (float)0.05;
-    float gamma = (float)0.1;
+    float alpha = (float)0.1;
+    float gamma = (float)0.2;
     String file_path = "/home/jadkins/AI-Game-Playing/GameProject3/DecentPlayers/data";
     q_matrix = new QMatrix(alpha,gamma,state_rows_num,num_actions,file_path);
 
@@ -54,15 +55,19 @@ public class QPlayer implements Player{
     public DirType getMove(GameState state){	
 	Random rand = new Random();
 
-    //System.out.println("X:"+headX);
-    //System.out.println("Y:"+headY);
+    int headX = state.getSnake(my_num).getHead().getX();
+    int headY = state.getSnake(my_num).getHead().getY();
+
+    System.out.println("X:"+headX);
+    System.out.println("Y:"+headY);
 
 
     int myState = getState(state);
     int action;
   
 
-    if(explore((float)0.2)) {
+    if(explore((float)0.5)) {
+        System.out.println("acts");
         action = rand.nextInt(4);
         
     }
@@ -74,6 +79,9 @@ public class QPlayer implements Player{
 
     }
 
+    System.out.println("actions "+action);
+    System.out.println(Arrays.toString(q_matrix.matrix[myState]));
+
 
     // check if game ends when we make this move
     // if so we probably died, so give big negative reward
@@ -84,19 +92,52 @@ public class QPlayer implements Player{
 
     GameState newState = GameRules.makeMoves(state, moves);
 
-    if(newState.isGameOver()) reward = -50;
-    
-    else reward = 5;
+    float reward;
 
+    if(newState.isGameOver()){
+
+     reward = -50;
+     
+
+ }
+
+    else if(action == 0 && headY+1 < 0){
+
+        reward = -5000;
+
+}
+
+    else if(action == 1 && headY-1 < state.max_y){
+
+        reward = -5000;
+
+}
+
+    else if(action == 2 && headX+1 >= state.max_x){
+
+        reward = -5000;
+
+}
+
+    
+    else if(action == 3 && headX-1 <=  0){
+
+        reward = -5000;
+
+}
+    
+    else {
+        reward = 10;
+    }
+
+    System.out.println("what"+ action+ Arrays.toString(q_matrix.matrix[myState]));
+    System.out.println("state"+myState);
+    System.out.println("reward"+reward);
 
     q_matrix.updateMatrix(reward,myState,action);
 
 
     return int_to_dir.get(action);
-
-
-
-    
 
 
     }
@@ -250,16 +291,21 @@ public class QPlayer implements Player{
         this.alpha = alpha;
         this.gamma = gamma;
         this.fileName = fileName;
-        this.matrix = new float[num_game_state_rows][num_actions];
+        
 
       
         System.out.println(Files.exists(Paths.get(fileName+".txt")));
+        System.out.println("brug");
         
-       if(Files.exists(Paths.get(fileName))) { 
+       if(Files.exists(Paths.get(fileName+".txt"))) { 
         System.out.println("getting from file!");
         this.matrix = Array_As_File.from_file(this.fileName,num_game_state_rows,num_actions);
    
             }
+
+        else{
+            this.matrix = new float[num_game_state_rows][num_actions];
+        }
 
 
 
@@ -271,9 +317,14 @@ public class QPlayer implements Player{
 
         this.matrix[state][action] = newQ;
 
-        System.out.println(this.matrix[0].length);
+
+
+        
         
         Array_As_File.to_file(this.matrix,this.fileName);
+        System.out.println("printed"+reward+state+action);
+
+        System.out.println(Arrays.toString(this.matrix[224]));
 
     }
 
