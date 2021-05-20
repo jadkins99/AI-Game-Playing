@@ -70,7 +70,7 @@ public class QPlayer implements Player{
     int action;
   
 
-    if(explore((float)0.0001)) {
+    if(explore((float)0.001)) {
         System.out.println("acts");
         action = rand.nextInt(4);
         
@@ -79,7 +79,7 @@ public class QPlayer implements Player{
 
     else{
 
-        action = getArrayMaxIndex(q_matrix.matrix[myState]);
+        action = QPlayer.getArrayMaxIndex(q_matrix.matrix[myState]);
 
     }
 
@@ -96,6 +96,7 @@ public class QPlayer implements Player{
 
     GameState newState = GameRules.makeMoves(state, moves);
 
+    int newMyState = getState(newState);
     float reward;
 
     if(newState.isGameOver()){
@@ -129,7 +130,7 @@ public class QPlayer implements Player{
 
     System.out.println("reward "+reward);
 
-    q_matrix.updateMatrix(reward,myState,action);
+    q_matrix.updateMatrix(reward,myState,newMyState,action);
 
 
     return int_to_dir.get(action);
@@ -139,15 +140,15 @@ public class QPlayer implements Player{
 
     private float[] getDistToNearestFood(List<FoodPiece> foods,int headX, int headY){
 
-        float big_dist = (float)100.0;
-        float x_dist = 15;
-        float y_dist = 15;
+        float min_dist = (float)1000000.0;
+        float x_dist = 100;
+        float y_dist = 100;
         for(FoodPiece piece: foods){
             float dist_squared = (float)(Math.pow((piece.getX() - headX),2) + Math.pow((piece.getY()-headY),2));
-            if (Math.pow(dist_squared,0.5) < big_dist) {
-                big_dist = (float)Math.pow(dist_squared,0.5);
-                x_dist = piece.getX();
-                y_dist = piece.getY();
+            if (Math.pow(dist_squared,0.5) < min_dist) {
+                min_dist = (float)Math.pow(dist_squared,0.5);
+                x_dist = Math.abs(piece.getX() - headX);
+                y_dist = Math.abs(piece.getY()-headY);
             }
         }
         float[] arr = {x_dist,y_dist};
@@ -252,7 +253,7 @@ public class QPlayer implements Player{
     }
 
 
-    private int getArrayMaxIndex(float[] arr){
+    static int getArrayMaxIndex(float[] arr){
 
         float max = arr[0];
         int index=  0;
@@ -327,8 +328,8 @@ public class QPlayer implements Player{
     }
 
 
-    void updateMatrix(float reward, int state, int action){
-        float newQ = (1-this.alpha)*this.matrix[state][action] + this.alpha*(reward + this.gamma*this.matrix[state][action]);
+    void updateMatrix(float reward, int state,int newState, int action){
+        float newQ = (1-this.alpha)*this.matrix[state][action] + this.alpha*(reward + this.gamma*this.matrix[newState][QPlayer.getArrayMaxIndex(this.matrix[newState])]);
 
         this.matrix[state][action] = newQ;
 
