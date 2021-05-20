@@ -5,17 +5,21 @@
 //      Player_1 =
 
 package ProjectThreeEngine;
-
+import DecentPlayers.*;
 import java.util.List;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import DecentPlayers.*;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AIGameText{
+    public static final int MAX_TURN = 500;
+    public static int turn_num;
+    
     static Player Player_0;
     static Player Player_1;
     
@@ -30,6 +34,7 @@ public class AIGameText{
     public static void run_game(String filename) throws IOException{
 	List<GameState> the_states = new ArrayList<GameState>();
 	gs_writer = new GameStateWriter(filename);
+	turn_num = 0;
 	
 	//IMPORTANT : Change these lines to change who is playing!
 	Player_0 = new WallAvoidingPlayer();
@@ -51,6 +56,26 @@ public class AIGameText{
 
 	while( !state.isGameOver() ){
 	    state = nextTurn();
+	    turn_num = turn_num + 1;
+
+	    //If we hit the turn limit, the longer snake wins
+	    if (turn_num >= MAX_TURN){
+		int sn0_len = state.getSnake(0).max_len;
+		int sn1_len = state.getSnake(1).max_len;
+		state.makeGameOver();
+		if(sn0_len > sn1_len){
+		    state.game_winner = 0;
+		}
+		if(sn1_len > sn0_len){
+		    state.game_winner = 1;
+		}
+		if(sn0_len == sn1_len){
+		    Random rand = new Random();
+		    int x = rand.nextInt(2);
+		    state.game_winner = x;
+		}
+	    }
+	    
 	    the_states.add(state);
 	}
 

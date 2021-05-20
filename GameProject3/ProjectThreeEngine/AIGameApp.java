@@ -6,7 +6,7 @@
 
 package ProjectThreeEngine;
 
-import DecentPlayers.*;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,10 +23,15 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import DecentPlayers.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AIGameApp extends Application{
+    public static final int MAX_TURN = 500;
+    public static int turn_num;
+    
     Player Player_0;
     Player Player_1;
     
@@ -39,7 +44,7 @@ public class AIGameApp extends Application{
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	Player_0 = new Dec();
+	Player_0 = new WallAvoidingPlayer();
 	Player_1 =  new QPlayer();
 
 
@@ -49,8 +54,9 @@ public class AIGameApp extends Application{
 	name_0 = Player_0.getPlayName();
 	name_1 = Player_1.getPlayName();
 
-
+	turn_num = 0;
 	state = new GameState(name_0, name_1 );
+	
 	Player_0.begin(new GameState(state), 0 );
 	Player_1.begin(new GameState(state), 1 );
 	
@@ -103,6 +109,26 @@ public class AIGameApp extends Application{
 	    }
 	    
 	    state = GameRules.makeMoves(state, moves);
+	    turn_num = turn_num + 1;
+
+	    //If we hit the turn limit, the longer snake wins
+	    if (turn_num >= MAX_TURN){
+		int sn0_len = state.getSnake(0).max_len;
+		int sn1_len = state.getSnake(1).max_len;
+		state.makeGameOver();
+		if(sn0_len > sn1_len){
+		    state.game_winner = 0;
+		}
+		if(sn1_len > sn0_len){
+		    state.game_winner = 1;
+		}
+		if(sn0_len == sn1_len){
+		    Random rand = new Random();
+		    int x = rand.nextInt(2);
+		    state.game_winner = x;
+		}
+	    }
+	    
 	    GameDisplayGraphics.displayState(test_canvas, state);
 	}
     }
