@@ -39,7 +39,7 @@ public class AIGameApp extends Application{
 
     public void start(Stage primaryStage){
 	//IMPORTANT : Change these lines to change who is playing!
-	Player_0 = new WallAvoidingPlayer();
+	Player_0 = new Dec();
 	Player_1 =  new QPlayer();
 
 

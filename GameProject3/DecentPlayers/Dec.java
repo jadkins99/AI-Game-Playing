@@ -22,9 +22,9 @@ public class Dec implements Player {
         Snake dec = state.getSnake(dec_num);
 
     
-        DirType cur_dir = state.getSnake(dec_num).head.getDir();
-        int dec_x = state.getSnake(dec_num).head.getX();
-        int dec_y = state.getSnake(dec_num).head.getY();
+        DirType cur_dir = dec.getHead().getDir();
+        int dec_x = dec.getHead().getX();
+        int dec_y = dec.getHead().getY();
 
         goodDir = checkDir(state, cur_dir, dec_x, dec_y);
         
