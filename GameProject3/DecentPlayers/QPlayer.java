@@ -113,7 +113,15 @@ public class QPlayer implements Player{
 
         // snake length minus initial starting length
         System.out.println("size "+mySnake.getBody().size());
-        reward = mySnake.getBody().size()- oppSnake.getBody().size();
+        float static_state = mySnake.getBody().size()- oppSnake.getBody().size();
+        float[] arr = getDistToNearestFood(state.getFoods(),headX,headY);
+        float x_dist = arr[0];
+        float y_dist = arr[1];
+
+        System.out.println("x_dist "+x_dist);
+        System.out.println("y_dist"+y_dist);
+
+        reward = static_state + Math.abs(15-x_dist)/15 + Math.abs(15-y_dist)/15;
 }
 
     //System.out.println("what "+ action+ Arrays.toString(q_matrix.matrix[myState]));
@@ -128,6 +136,26 @@ public class QPlayer implements Player{
 
 
     }
+
+    private float[] getDistToNearestFood(List<FoodPiece> foods,int headX, int headY){
+
+        float big_dist = (float)100.0;
+        float x_dist = 15;
+        float y_dist = 15;
+        for(FoodPiece piece: foods){
+            float dist_squared = (float)(Math.pow((piece.getX() - headX),2) + Math.pow((piece.getY()-headY),2));
+            if (Math.pow(dist_squared,0.5) < big_dist) {
+                big_dist = (float)Math.pow(dist_squared,0.5);
+                x_dist = piece.getX();
+                y_dist = piece.getY();
+            }
+        }
+        float[] arr = {x_dist,y_dist};
+        return arr;
+    }
+
+
+
 
 
     private int getState(GameState state){
